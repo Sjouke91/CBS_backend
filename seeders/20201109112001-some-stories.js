@@ -33,6 +33,15 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          name: "My experience with Corona",
+          content: "It is absolutely a terrible experience",
+          imageUrl:
+            "https://www.witsenkade.nl/wp-content/uploads/2020/03/Covid-1200x671.jpg",
+          spaceId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
