@@ -19,4 +19,22 @@ router.get("/", async (req, res, next) => {
     next(e);
   }
 });
+
+router.delete("/:storyId", async (req, res, next) => {
+  const storyId = req.params.storyId;
+  console.log("this is id", storyId);
+  try {
+    const toDeleteStory = await Stories.findByPk(storyId);
+    console.log("this is deleteStory", toDeleteStory);
+    if (!toDeleteStory) {
+      res.status(404).send("Story not found");
+      return;
+    }
+    const deleted = await toDeleteStory.destroy();
+    res.json(deleted);
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;

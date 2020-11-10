@@ -1,6 +1,7 @@
 const { Router } = require("express");
 // const authMiddleware = require("../auth/middleware");
 const Spaces = require("../models").space;
+const Stories = require("../models").story;
 
 const router = new Router();
 
@@ -29,7 +30,15 @@ router.get("/", async (req, res, next) => {
 router.get("/:userId", async (req, res, next) => {
   const id = req.params.userId;
   try {
-    const space = await Spaces.findOne({ where: { userId: id } });
+    const space = await Spaces.findOne({
+      Model: Spaces,
+      attributes: ["title", "id", "backgroundColor", "color"],
+      where: { userId: id },
+      include: {
+        model: Stories,
+        attributes: ["name", "content", "imageUrl", "id", "createdAt"],
+      },
+    });
     if (!space) {
       res.status(404).send("the space of this user not found");
       return;

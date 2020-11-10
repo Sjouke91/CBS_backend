@@ -10,3 +10,8 @@ npx sequelize-cli seed:generate --name some-stories
 **Token for test**
 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTYwNDkyNjQ5OSwiZXhwIjoxNjA0OTMzNjk5fQ.c780x6tJZpBpUw21szXAroTtQP_o56EE67uevy54wcs
+
+title: <MyName>'s space
+description: null
+backgroundColor: #ffffff (white)
+color: #000000 (black)
