@@ -2,6 +2,7 @@ const { Router } = require("express");
 // const authMiddleware = require("../auth/middleware");
 const Spaces = require("../models").space;
 const Stories = require("../models").story;
+const authMiddleware = require("../auth/middleware");
 
 const router = new Router();
 
@@ -47,6 +48,40 @@ router.get("/:userId", async (req, res, next) => {
   } catch (e) {
     next(e);
   }
+});
+
+router.post("/:spaceId/stories", async (req, res, next) => {
+  const spaceId = req.params.spaceId;
+  const { name, content, imageUrl } = req.body;
+  if (!name || !content || !imageUrl) {
+    res.status(404).send("missing information");
+    return;
+  }
+  try {
+    const newPost = await Stories.create({ name, content, imageUrl, spaceId });
+    console.log(newPost);
+    res.send(newPost);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.patch("/:id", authMiddleware, async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const space = await Spaces.findByPk(req.params.id);
+  console.log(space);
+  if (!space.userId === id) {
+    return res
+      .status(403)
+      .send({ message: "You are not authorized to update this space" });
+  }
+
+  const { title, description, backgroundColor, color } = req.body;
+
+  await space.update({ title, description, backgroundColor, color });
+
+  return res.status(200).send({ space });
 });
 
 module.exports = router;

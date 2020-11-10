@@ -106,25 +106,3 @@ router.get("/me", authMiddleware, async (req, res, next) => {
 });
 
 module.exports = router;
-
-// router.get("/:userId", async (req, res, next) => {
-//   const id = req.params.userId;
-//   try {
-//     const space = await Spaces.findOne({
-//       Model: Spaces,
-//       attributes: ["title", "id", "backgroundColor", "color"],
-//       where: { userId: id },
-//       include: {
-//         model: Stories,
-//         attributes: ["name", "content", "imageUrl", "id", "createdAt"],
-//       },
-//     });
-//     if (!space) {
-//       res.status(404).send("the space of this user not found");
-//       return;
-//     }
-//     res.send(space);
-//   } catch (e) {
-//     next(e);
-//   }
-// });
